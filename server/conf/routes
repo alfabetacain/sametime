@@ -4,7 +4,10 @@
 
 # Home page
 GET        /                             dk.alfabetacain.sametime.controllers.Application.index
-GET        /ws                dk.alfabetacain.sametime.controllers.Application.websocket(room)
+GET        /room                         dk.alfabetacain.sametime.controllers.Application.createRoomPage
+POST       /room                         dk.alfabetacain.sametime.controllers.Application.createRoom
+GET        /room/:roomId                   dk.alfabetacain.sametime.controllers.Application.roomPage(roomId: String)
+GET        /room/:room/ws                   dk.alfabetacain.sametime.controllers.Application.websocket(room)
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)

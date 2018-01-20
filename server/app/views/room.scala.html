@@ -1,0 +1,10 @@
+@(id: String, videoId: String)
+
+@main(s"Room $id") {
+    <h2>Room @id</h2>
+    <div id="player" />
+}{
+    <script type="text/javascript">
+            ScalaJSExample.roomEntry("@videoId");
+    </script>
+}

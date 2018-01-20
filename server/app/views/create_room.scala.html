@@ -1,0 +1,12 @@
+@(roomForm: Form[dk.alfabetacain.sametime.controllers.RoomData])(implicit messages: Messages)
+
+@import play.twirl.api.HtmlFormat
+@main(s"Create room") {
+    <h2>Create room</h2>
+
+    @helper.form(action = dk.alfabetacain.sametime.controllers.routes.Application.createRoom) {
+        @helper.inputText(roomForm("videoId"))
+        @helper.inputText(roomForm("size"))
+        <input type="submit" value="Create">
+    }
+}{@HtmlFormat.empty}
