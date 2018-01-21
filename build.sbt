@@ -9,7 +9,11 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
     "com.vmunier" %% "scalajs-scripts" % "1.1.1",
     guice,
     specs2 % Test,
-    "com.lihaoyi" %% "upickle" % upickleV
+    "com.lihaoyi" %% "upickle" % upickleV,
+    "org.webjars" % "bootstrap" % "4.0.0",
+    "org.webjars" %% "webjars-play" % "2.6.3",
+    "org.webjars" % "jquery" % "3.2.1",
+    "org.webjars.bower" % "popper.js" % "1.12.9"
   ),
 ).enablePlugins(PlayScala).
   dependsOn(sharedJvm)

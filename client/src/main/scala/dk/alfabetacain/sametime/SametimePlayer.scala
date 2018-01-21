@@ -14,7 +14,7 @@ import scala.scalajs.js.UndefOr
 
 case class State(socketReady: Boolean, playerReady: Boolean)
 
-class SametimePlayer(val playerElementId: String, val videoId: String, val whenReady: () => Unit = () => {}) {
+class SametimePlayer(val playerElementId: String, val videoId: String, val roomId: String, val whenReady: () => Unit = () => {}) {
 
   var socket: WebSocket = null
   var player: Player = null
@@ -69,7 +69,7 @@ class SametimePlayer(val playerElementId: String, val videoId: String, val whenR
   }
 
   def createSocket(): Unit = {
-    socket = new WebSocket(getWebsocketUri("test"))
+    socket = new WebSocket(getWebsocketUri(roomId))
     socket.onopen = socketOnOpen
   }
 
@@ -91,7 +91,7 @@ class SametimePlayer(val playerElementId: String, val videoId: String, val whenR
 
   def getWebsocketUri(room: String): String = {
     val wsProtocol = if (dom.document.location.protocol == "https") "wss" else "ws"
-    s"$wsProtocol://${dom.document.location.host}/room/$room"
+    s"$wsProtocol://${dom.document.location.host}/room/$room/ws"
   }
 }
 

@@ -1,10 +1,11 @@
-@(id: String, videoId: String)
+@import org.webjars.play.WebJarsUtil
+@(id: String, videoId: String)(implicit webJarsUtil: WebJarsUtil)
 
 @main(s"Room $id") {
     <h2>Room @id</h2>
     <div id="player" />
 }{
     <script type="text/javascript">
-            ScalaJSExample.roomEntry("@videoId");
+            ScalaJSExample.roomEntry("@videoId", "@id");
     </script>
 }

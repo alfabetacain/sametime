@@ -1,4 +1,5 @@
-@(message: String)
+@import org.webjars.play.WebJarsUtil
+@(message: String)(implicit webJarsUtil: WebJarsUtil)
 
 @main("Play with Scala.js") {
 <h2>Play and Scala.js share a same message</h2>

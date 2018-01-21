@@ -12,6 +12,7 @@ import akka.stream.Materializer
 
 import scala.concurrent.duration._
 import akka.util.Timeout
+import org.webjars.play.WebJarsUtil
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraint._
@@ -23,7 +24,7 @@ import scala.util.Random
 final case class RoomData(videoId: String, size: Int)
 
 class Application @Inject() (@Named("room_manager") roomManager: ActorRef, cc: ControllerComponents)
-                            (implicit system: ActorSystem, mat: Materializer, ec: ExecutionContext) extends AbstractController(cc)
+                            (implicit system: ActorSystem, mat: Materializer, ec: ExecutionContext, webJarsUtil: WebJarsUtil) extends AbstractController(cc)
   with I18nSupport {
 
   implicit val akkaAskTimeout: Timeout = 5.seconds

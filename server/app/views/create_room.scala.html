@@ -1,12 +1,31 @@
-@(roomForm: Form[dk.alfabetacain.sametime.controllers.RoomData])(implicit messages: Messages)
+@import org.webjars.play.WebJarsUtil
+@(roomForm: Form[dk.alfabetacain.sametime.controllers.RoomData])(implicit webJarsUtil: WebJarsUtil, messages: Messages)
 
 @import play.twirl.api.HtmlFormat
 @main(s"Create room") {
-    <h2>Create room</h2>
+    @webJarsUtil.locate("bootstrap.min.css").css()
+    <div style="text-align: center">
+        <h2>Create room</h2>
 
-    @helper.form(action = dk.alfabetacain.sametime.controllers.routes.Application.createRoom) {
-        @helper.inputText(roomForm("videoId"))
-        @helper.inputText(roomForm("size"))
-        <input type="submit" value="Create">
-    }
-}{@HtmlFormat.empty}
+        <label for="linkInput">Input your youtube link here</label>
+        <div class="input-group mb-3">
+            <input type="text" id="linkInput" class="form-control" placeholder="URL input">
+        </div>
+            @helper.form(action = dk.alfabetacain.sametime.controllers.routes.Application.createRoom) {
+                <div class="form-group">
+                    <label for="videoInput">or provide the video ID</label>
+                    <input type="text" class="form-control" name="@roomForm("videoId").name" id="videoInput" placeholder="Video ID">
+                </div>
+                <div class="form-group">
+                    <label for="sizeInput">and then determine how many should be present before the video starts</label>
+                    <input type="number" class="form-control" id="sizeInput" name="@roomForm("size")" placeholder="Size of the group">
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            }
+
+    </div>
+}{
+    <script type="text/javascript">
+            ScalaJSExample.createRoomEntry("linkInput", "videoInput");
+    </script>
+}
