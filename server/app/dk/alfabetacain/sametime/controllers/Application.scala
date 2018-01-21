@@ -53,13 +53,17 @@ class Application @Inject() (@Named("room_manager") roomManager: ActorRef, cc: C
     println("create room")
     roomForm.bindFromRequest.fold(
       errorForm => {
+        println(errorForm.errors)
+        //println(s"$errorForm")
         Future.successful(BadRequest(views.html.create_room(errorForm)))
       }, roomData => {
         val roomName = Random.alphanumeric.take(40).mkString
         (roomManager ? RoomManager.CreateRoom(roomName, roomData.size, roomData.videoId)).map{
           case RoomManager.RoomCreated(`roomName`) =>
+            println("Room created")
             Redirect(routes.Application.roomPage(roomName))
           case x => {
+            println("error occurred")
             println(x)
             InternalServerError("")
           }

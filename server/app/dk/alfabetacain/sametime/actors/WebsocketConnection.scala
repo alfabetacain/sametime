@@ -14,6 +14,8 @@ class WebsocketConnection(room: String, roomManager: ActorRef, out: ActorRef) ex
     case Play =>
       println("Received play!")
       out ! write(shared.Play)
+    case RoomStatus(name, numberOfOccupants, size) =>
+      out ! write(shared.RoomStatus(numberOfOccupants, size))
     case json: String =>
       println(s"Received json: $json")
       self ! read[shared.WebsocketMessage](json)
@@ -32,5 +34,6 @@ object WebsocketConnection {
   )
 
   sealed trait Message
-  case object Play extends Message
+  final case object Play extends Message
+  final case class RoomStatus(name: String, numberOfParticipants: Int, wantedNumber: Int) extends Message
 }

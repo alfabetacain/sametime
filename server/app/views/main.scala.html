@@ -14,7 +14,7 @@
   </head>
   <body>
     <nav class="navbar navbar-dark bg-dark">
-      <span class="navbar-brand mb-0 h1">Sametime</span>
+      <a href="@dk.alfabetacain.sametime.controllers.routes.Application.index()" class="navbar-brand mb-0 h1">Sametime</a>
     </nav>
     @content
     @scalajs.html.scripts("client", routes.Assets.versioned(_).toString, name => getClass.getResource(s"/public/$name") != null)

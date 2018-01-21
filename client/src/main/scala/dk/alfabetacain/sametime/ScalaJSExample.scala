@@ -12,10 +12,10 @@ import scala.util.matching.Regex
 object ScalaJSExample {
 
   @JSExport
-  def roomEntry(videoId: String, roomId: String): Unit = {
+  def roomEntry(videoId: String, roomId: String, progressbarId: String): Unit = {
     println(s"Received $videoId")
     //dom.document.getElementById("scalajsShoutOut").textContent = SharedMessages.itWorks
-    val sametimePlayer = new SametimePlayer("player", videoId, roomId)
+    val sametimePlayer = new SametimePlayer("player", videoId, roomId, progressbarId)
   }
 
   @JSExport
