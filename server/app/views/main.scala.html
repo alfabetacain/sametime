@@ -6,21 +6,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@title</title>
-    @webJarsUtil.locate("bootstrap.min.css").css()
+    @webJarsUtil.locate("semantic.min.css").css()
+    @webJarsUtil.locate("3.2.1/jquery.min.js").script()
+    @webJarsUtil.locate("semantic.min.js").script()
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
   </head>
   <body>
-    <nav class="navbar navbar-dark bg-dark">
-      <a href="@dk.alfabetacain.sametime.controllers.routes.Application.index()" class="navbar-brand mb-0 h1">Sametime</a>
-    </nav>
+    @menu(Some(title))
     @content
     @scalajs.html.scripts("client", routes.Assets.versioned(_).toString, name => getClass.getResource(s"/public/$name") != null)
-    @webJarsUtil.locate("3.2.1/jquery.min.js").script()
-    @webJarsUtil.locate("1.12.9/dist/popper.min.js").script()
-    @webJarsUtil.locate("bootstrap.min.js").script()
     @afterScriptLoading
   </body>
 </html>

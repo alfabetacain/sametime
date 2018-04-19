@@ -1,29 +1,47 @@
 @import org.webjars.play.WebJarsUtil
 @(roomForm: Form[dk.alfabetacain.sametime.controllers.RoomData])(implicit webJarsUtil: WebJarsUtil, messages: Messages)
 
+@import dk.alfabetacain.sametime.controllers.routes.Application
+
 @import play.twirl.api.HtmlFormat
-@main(s"Create room") {
-    @webJarsUtil.locate("bootstrap.min.css").css()
-    <div style="text-align: center">
+@main(s"Create Room") {
+    <div class="ui container" style="text-align: center">
         <h2>Create room</h2>
 
-        <label for="linkInput">Input your youtube link here</label>
-        <div class="input-group mb-3">
-            <input type="text" id="linkInput" class="form-control" placeholder="URL input">
-        </div>
-            @helper.form(action = dk.alfabetacain.sametime.controllers.routes.Application.createRoom) {
-                <div class="form-group">
-                    <label for="videoInput">or provide the video ID</label>
-                    <input type="text" class="form-control" name="@roomForm("videoId").name" id="videoInput" placeholder="Video ID">
+        @helper.form(action = Application.createRoom, 'class -> "ui form") {
+            <div class="two fields">
+                <div class="field">
+                    <label>Youtube link</label>
+                    <input class="ui input" placeholder="Youtube link" type="text" id="linkInput">
                 </div>
-                <div class="form-group">
-                    <label for="sizeInput">and how many are watching</label>
-                    <input type="number" class="form-control" id="sizeInput" name="@roomForm("size").name" placeholder="Size of the group">
+                <div class="field">
+                    <label>Video ID</label>
+                    <input class="ui input" placeholder="Video ID" type="text" name="@roomForm("videoId").name" id="videoInput">
                 </div>
-                <button type="submit" class="btn btn-primary">Create</button>
-            }
+            </div>
+
+            <br />
+            <br />
+            <br />
+            <div class="field">
+                <label>Number of people watching</label>
+                <input placeholder="How many are watching" type="text" name="@roomForm("size").name">
+            </div>
+            <br />
+            <br />
+            <button class="ui button submit" type="submit">Create Room</button>
+            <div class="ui error message"></div>
+        }
     </div>
 }{
+    <script type="text/javascript">
+        $('.ui.form')
+                .form({
+                   fields: {
+                       @(roomForm("size").name): ['integer[1..10]']
+                   }
+                });
+    </script>
     <script type="text/javascript">
             ScalaJSExample.createRoomEntry("linkInput", "videoInput");
     </script>

@@ -13,7 +13,8 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
     "org.webjars" % "bootstrap" % "4.0.0",
     "org.webjars" %% "webjars-play" % "2.6.3",
     "org.webjars" % "jquery" % "3.2.1",
-    "org.webjars.bower" % "popper.js" % "1.12.9"
+    "org.webjars.bower" % "popper.js" % "1.12.9",
+    "org.webjars" % "Semantic-UI" % "2.3.1"
   ),
 ).enablePlugins(PlayScala).
   dependsOn(sharedJvm)

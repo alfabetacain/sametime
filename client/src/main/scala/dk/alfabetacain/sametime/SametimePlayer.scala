@@ -35,8 +35,8 @@ class SametimePlayer(val playerElementId: String, val videoId: String, val roomI
   def createYoutubePlayer(id: String): Unit = {
     dom.window.asInstanceOf[js.Dynamic].onYouTubeIframeAPIReady = () => {
       player = new Player(id, PlayerOptions(
-        width = "640",
-        height = "390",
+        width = s"${(dom.window.screen.availWidth/2).toInt}",
+        height = s"${(dom.window.screen.availHeight / 2).toInt}",
         videoId = videoId,
         events = PlayerEvents(
           onReady = UndefOr.any2undefOrA(onYoutubePlayerReady),
@@ -88,9 +88,9 @@ class SametimePlayer(val playerElementId: String, val videoId: String, val roomI
         player.playVideo()
       case shared.RoomStatus(numberOfOccupants, size) =>
         println(s"Room status: $numberOfOccupants/$size")
-        progressbar.setAttribute("aria-valuenow", s"$numberOfOccupants")
-        progressbar.setAttribute("aria-valuemax", s"$size")
-        progressbar.setAttribute("style", s"width: ${(numberOfOccupants / (size + 0.0) * 100).toInt}%")
+        progressbar.setAttribute("data-value", s"$numberOfOccupants")
+        progressbar.setAttribute("data-total", s"$size")
+        //progressbar.setAttribute("style", s"width: ${(numberOfOccupants / (size + 0.0) * 100).toInt}%")
       case x =>
         println(s"Received unknown message: $msg")
     }

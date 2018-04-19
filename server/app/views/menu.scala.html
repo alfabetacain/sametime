@@ -1,0 +1,6 @@
+@(activeItem: Option[String] = None)
+
+<div class="ui inverted menu">
+    <a class="item @(if (activeItem.contains("Home")) "active" else "")" href="@dk.alfabetacain.sametime.controllers.routes.Application.index()">Home</a>
+    <a class="item @(if (activeItem.contains("Create Room")) "active" else "")" href="@dk.alfabetacain.sametime.controllers.routes.Application.createRoom()">Create Room</a>
+</div>

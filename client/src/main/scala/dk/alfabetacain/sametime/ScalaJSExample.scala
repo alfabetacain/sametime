@@ -21,7 +21,7 @@ object ScalaJSExample {
   @JSExport
   def createRoomEntry(linkInputId: String, videoOutputId: String): Unit = {
     //https://www.youtube.com/watch?v=JymZSQ7l2j4
-    val regex = """v=([a-zA-Z0-9]+)""".r
+    val regex = """v=([^&]+)""".r
     val videoOutput = dom.document.getElementById(videoOutputId).asInstanceOf[Input]
     val urlInput = dom.document.getElementById(linkInputId).asInstanceOf[Input]
     urlInput.oninput = urlHandler(regex, videoOutput, _)
@@ -32,7 +32,7 @@ object ScalaJSExample {
     println(s"url: $url")
     regex.findFirstMatchIn(url) match {
       case None =>
-        videoOutput.value = ""
+        //videoOutput.value = ""
       case Some(hit) => {
         videoOutput.value = hit.group(1)
       }
