@@ -18,23 +18,27 @@ object ScalaJSExample {
     val sametimePlayer = new SametimePlayer("player", videoId, roomId, progressbarId)
   }
 
+  private val youtubeLink = """youtube\.com""".r
+  private val linkIdExtraction = """v=([^&]+)""".r
+
   @JSExport
   def createRoomEntry(linkInputId: String, videoOutputId: String): Unit = {
     //https://www.youtube.com/watch?v=JymZSQ7l2j4
-    val regex = """v=([^&]+)""".r
     val videoOutput = dom.document.getElementById(videoOutputId).asInstanceOf[Input]
     val urlInput = dom.document.getElementById(linkInputId).asInstanceOf[Input]
-    urlInput.oninput = urlHandler(regex, videoOutput, _)
+    urlInput.oninput = updateVideoIdBasedOnVideoLink(linkIdExtraction, videoOutput, _)
   }
 
-  def urlHandler(regex: Regex, videoOutput: Input, event: Event): Unit = {
+  def updateVideoIdBasedOnVideoLink(regex: Regex, videoOutput: Input, event: Event): Unit = {
     val url = event.target.asInstanceOf[Input].value
     println(s"url: $url")
-    regex.findFirstMatchIn(url) match {
-      case None =>
+    if (youtubeLink.findFirstIn(url).isDefined) {
+      regex.findFirstMatchIn(url) match {
+        case None =>
         //videoOutput.value = ""
-      case Some(hit) => {
-        videoOutput.value = hit.group(1)
+        case Some(hit) => {
+          videoOutput.value = hit.group(1)
+        }
       }
     }
   }

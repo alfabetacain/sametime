@@ -9,23 +9,16 @@
         <h2>Create room</h2>
 
         @helper.form(action = Application.createRoom, 'class -> "ui form") {
-            <div class="two fields">
-                <div class="field">
-                    <label>Youtube link</label>
-                    <input class="ui input" placeholder="Youtube link" type="text" id="linkInput">
+            <div class="fields">
+                <div class="thirteen wide field">
+                    <label>Youtube link or video id</label>
+                    <input class="ui input" placeholder="Youtube link or video id" type="text" id="linkInput">
                 </div>
-                <div class="field">
-                    <label>Video ID</label>
-                    <input class="ui input" placeholder="Video ID" type="text" name="@roomForm("videoId").name" id="videoInput">
+                <input type="hidden" name="@roomForm("videoId").name" id="videoInput">
+                <div class="three wide field">
+                    <label>Room size</label>
+                    <input maxlength="3" placeholder="Room size" type="text" name="@roomForm("size").name">
                 </div>
-            </div>
-
-            <br />
-            <br />
-            <br />
-            <div class="field">
-                <label>Number of people watching</label>
-                <input placeholder="How many are watching" type="text" name="@roomForm("size").name">
             </div>
             <br />
             <br />
@@ -38,7 +31,8 @@
         $('.ui.form')
                 .form({
                    fields: {
-                       @(roomForm("size").name): ['integer[1..10]']
+                       @(roomForm("size").name): ['integer[1..10]'],
+                       linkInput: 'empty'
                    }
                 });
     </script>
